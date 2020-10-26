@@ -37,3 +37,18 @@ router.put("/api/workouts/:id", ({ body, params }, res) => {
       res.json(err);
     });
 });
+
+//Shows workouts limits to 7 since given HTML for tracker only shows 1 week 
+router.get("/api/workouts/range", (req, res) => {
+    WorkoutTracker.find({}).sort({'day': 1}).limit(7)
+    .then(dbWorkouts => {
+      res.json(dbWorkouts);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
+
+
+module.exports = router;
+
